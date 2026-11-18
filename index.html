@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2-Month Service-Based Placement Schedule (Synced with NQT Topic Tracker)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* utilitarian · productivity & exam prep · answer-first hero · 2-month schedule synced to NQT_Maths_Reasoning_Topics.xlsx · Space Grotesk + Inter + JetBrains Mono · crisp white + cobalt · 0px radius · metric strip emphasis · hairline split · stacked topic-status bar */
+    :root {
+      --paper: #FFFFFF;
+      --ink: #0F172A;
+      --ink2: #334155;
+      --mute: #475569;
+      --hair: #CBD5E1;
+      --accent: #2563EB;
+      --accent-text: #1E3A8A;
+      --accent-2: #0D9488;
+      --accent-2-text: #115E59;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      padding: 64px clamp(24px, 8vw, 112px) 92px;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 24px;
+    }
+
+    .col-full {
+      grid-column: 1 / -1;
+    }
+
+    .measure {
+      max-width: 68ch;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.35rem, 4.3vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin: 0 0 18px;
+      text-wrap: balance;
+    }
+
+    .deck {
+      font-size: 1.125rem;
+      line-height: 1.55;
+      color: var(--ink2);
+      margin: 0 0 36px;
+      max-width: 66ch;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: 0 0 16px;
+      text-wrap: balance;
+    }
+
+    h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--ink);
+      margin: 0 0 8px;
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: var(--ink2);
+    }
+
+    a {
+      color: var(--accent-text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .sec {
+      margin-top: 64px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      padding: 24px 0;
+      margin-bottom: 48px;
+    }
+
+    .metric-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.9rem, 3vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--accent-text);
+      white-space: nowrap;
+    }
+
+    .metric-label {
+      font-size: 0.875rem;
+      color: var(--mute);
+      margin-top: 6px;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    .fig-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0 0 12px;
+      line-height: 1.35;
+    }
+
+    figcaption {
+      font-size: 0.8125rem;
+      color: var(--mute);
+      margin-top: 10px;
+      line-height: 1.45;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 24px;
+      border-top: 1px solid var(--hair);
+      padding-top: 28px;
+    }
+
+    .split-left {
+      grid-column: 1 / 5;
+    }
+
+    .split-right {
+      grid-column: 5 / -1;
+    }
+
+    ul.clean, ol.clean {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--ink2);
+    }
+
+    ul.clean li, ol.clean li {
+      margin-bottom: 10px;
+      line-height: 1.55;
+    }
+
+    .ts {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      color: var(--accent-text);
+      white-space: nowrap;
+    }
+
+    .ts-muted {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      color: var(--mute);
+      white-space: nowrap;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+
+    thead th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--mute);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 10px 12px 10px 0;
+      border-bottom: 2px solid var(--ink);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 14px 14px 14px 0;
+      border-bottom: 1px solid var(--hair);
+      vertical-align: top;
+      color: var(--ink2);
+    }
+
+    tbody td:first-child {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .pull-quote {
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--hair);
+      padding: 28px 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--ink);
+      max-width: 60ch;
+    }
+
+    .cols-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      border-top: 1px solid var(--hair);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .split-left, .split-right {
+        grid-column: 1 / -1;
+      }
+      .split-left {
+        margin-bottom: 16px;
+      }
+      .cols-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="col-full">
+      <h1>2-Month Service-Based Placement Study Schedule</h1>
+      <p class="deck">Synced directly with your 33-topic tracker (<em>NQT_Maths_Reasoning_Topics.xlsx</em>) across Maths, Reasoning, and Tarun Grover's English playlist—paced at ~2 hours/day over 8 weeks for TCS NQT, Infosys, Wipro, Cognizant, Accenture, and Capgemini.</p>
+    </header>
+
+    <section class="col-full metrics" aria-label="Tracker audit metrics">
+      <div>
+        <div class="metric-val">14 / 33</div>
+        <div class="metric-label">Topics fully covered in videos</div>
+      </div>
+      <div>
+        <div class="metric-val">6 Thin</div>
+        <div class="metric-label">Short chapters needing drills</div>
+      </div>
+      <div>
+        <div class="metric-val">3 Check</div>
+        <div class="metric-label">Ages, Indices/Logs, Math Ops</div>
+      </div>
+      <div>
+        <div class="metric-val">7 Missing</div>
+        <div class="metric-label">Outside study in Week 7</div>
+      </div>
+    </section>
+
+    <section class="col-full">
+      <figure>
+        <div class="fig-title">Of 33 tracked Maths and Reasoning topics, 13 require extra drills, verification, or outside study</div>
+        <svg viewBox="0 0 680 260" width="100%" role="img" aria-label="Horizontal stacked bar chart of 33 tracked topics by status in Maths and Reasoning">
+          <!-- Legend -->
+          <rect x="130" y="10" width="12" height="12" fill="#2563EB" />
+          <text x="148" y="21" font-family="Inter, sans-serif" font-size="12.5" fill="#0F172A">Covered (14)</text>
+          <rect x="242" y="10" width="12" height="12" fill="#60A5FA" />
+          <text x="260" y="21" font-family="Inter, sans-serif" font-size="12.5" fill="#0F172A">Thin (6)</text>
+          <rect x="330" y="10" width="12" height="12" fill="#94A3B8" />
+          <text x="348" y="21" font-family="Inter, sans-serif" font-size="12.5" fill="#0F172A">Check first (3)</text>
+          <rect x="454" y="10" width="12" height="12" fill="#0D9488" />
+          <text x="472" y="21" font-family="Inter, sans-serif" font-size="12.5" fill="#115E59">Missing (7)</text>
+          <rect x="562" y="10" width="12" height="12" fill="#CBD5E1" />
+          <text x="580" y="21" font-family="Inter, sans-serif" font-size="12.5" fill="#475569">Skip (3)</text>
+
+          <!-- Scale: 0 to 21 topics -> x=130 to x=592 (22px per topic) -->
+          <line x1="130" y1="46" x2="130" y2="210" stroke="#CBD5E1" stroke-width="1" />
+          <line x1="240" y1="46" x2="240" y2="210" stroke="#E2E8F0" stroke-width="1" />
+          <line x1="350" y1="46" x2="350" y2="210" stroke="#E2E8F0" stroke-width="1" />
+          <line x1="460" y1="46" x2="460" y2="210" stroke="#E2E8F0" stroke-width="1" />
+          <line x1="592" y1="46" x2="592" y2="210" stroke="#E2E8F0" stroke-width="1" />
+
+          <text x="130" y="230" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle">0</text>
+          <text x="240" y="230" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle">5</text>
+          <text x="350" y="230" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle">10</text>
+          <text x="460" y="230" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle">15</text>
+          <text x="592" y="230" font-family="JetBrains Mono, monospace" font-size="12" fill="#475569" text-anchor="middle">21 topics</text>
+
+          <!-- Maths (21): Covered 9 (198), Thin 4 (88), Check 2 (44), Missing 4 (88), Skip 2 (44) -->
+          <text x="118" y="92" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#0F172A" text-anchor="end">Maths (21)</text>
+          <rect x="130" y="68" width="198" height="36" fill="#2563EB" />
+          <text x="229" y="91" font-family="JetBrains Mono, monospace" font-size="13" fill="#FFFFFF" text-anchor="middle">9</text>
+          <rect x="328" y="68" width="88" height="36" fill="#60A5FA" />
+          <text x="372" y="91" font-family="JetBrains Mono, monospace" font-size="13" fill="#0F172A" text-anchor="middle">4</text>
+          <rect x="416" y="68" width="44" height="36" fill="#94A3B8" />
+          <text x="438" y="91" font-family="JetBrains Mono, monospace" font-size="13" fill="#0F172A" text-anchor="middle">2</text>
+          <rect x="460" y="68" width="88" height="36" fill="#0D9488" />
+          <text x="504" y="91" font-family="JetBrains Mono, monospace" font-size="13" fill="#FFFFFF" text-anchor="middle">4</text>
+          <rect x="548" y="68" width="44" height="36" fill="#CBD5E1" />
+          <text x="570" y="91" font-family="JetBrains Mono, monospace" font-size="13" fill="#0F172A" text-anchor="middle">2</text>
+
+          <!-- Reasoning (12): Covered 5 (110), Thin 2 (44), Check 1 (22), Missing 3 (66), Skip 1 (22) -->
+          <text x="118" y="164" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#0F172A" text-anchor="end">Reasoning (12)</text>
+          <rect x="130" y="140" width="110" height="36" fill="#2563EB" />
+          <text x="185" y="163" font-family="JetBrains Mono, monospace" font-size="13" fill="#FFFFFF" text-anchor="middle">5</text>
+          <rect x="240" y="140" width="44" height="36" fill="#60A5FA" />
+          <text x="262" y="163" font-family="JetBrains Mono, monospace" font-size="13" fill="#0F172A" text-anchor="middle">2</text>
+          <rect x="284" y="140" width="22" height="36" fill="#94A3B8" />
+          <text x="295" y="163" font-family="JetBrains Mono, monospace" font-size="13" fill="#0F172A" text-anchor="middle">1</text>
+          <rect x="306" y="140" width="66" height="36" fill="#0D9488" />
+          <text x="339" y="163" font-family="JetBrains Mono, monospace" font-size="13" fill="#FFFFFF" text-anchor="middle">3</text>
+          <rect x="372" y="140" width="22" height="36" fill="#CBD5E1" />
+          <text x="383" y="163" font-family="JetBrains Mono, monospace" font-size="13" fill="#0F172A" text-anchor="middle">1</text>
+        </svg>
+        <figcaption>Topic counts taken directly from <em>NQT_Maths_Reasoning_Topics.xlsx</em> (Summary rows: Maths 21, Reasoning 12, Total 33).</figcaption>
+      </figure>
+    </section>
+
+    <section class="col-full sec split">
+      <div class="split-left">
+        <h2>Tracker rules: Skip, Check First &amp; Thin chapters</h2>
+        <p class="measure">Follow these exact rules from your workbook before watching the Advanced Maths and Reasoning blocks.</p>
+      </div>
+      <div class="split-right">
+        <ul class="clean">
+          <li><strong>Extra &mdash; Skip:</strong> Skip the 3-hr <em>Geometry</em> chapter (basics only for NQT), <em>Pair Formation / Dictionary / Matrix</em> in Reasoning, and <em>Trigonometry / Height &amp; Distance / Coordinate Geometry / Polygon</em> (unless you are also targeting OSSSC).</li>
+          <li><strong>Check First (3 topics):</strong> Verify <em>Ages</em> inside the Ratio video, <em>Indices &amp; Logs</em> inside Algebra, and <em>Mathematical Operations</em> inside Critical Mathematical Reasoning; study outside if absent.</li>
+          <li><strong>Thin Chapters (6 topics):</strong> Use Arithmetic 2 (<span class="ts">~1.5 hr</span>) for <em>LCM &amp; HCF</em> instead of Advanced (<span class="ts-muted">~14m</span>); check <em>Mensuration 2D</em> (<span class="ts">11:41:36–11:44:06</span>, ~2m gap—study outside if a timestamp error); run daily 10–15 Q <em>Simplification</em> speed drills; add extra outside practice for <em>Probability</em>, <em>Puzzles &amp; Seating</em> (<span class="ts-muted">1h20</span>), and <em>Data Sufficiency</em> (<span class="ts-muted">~30m</span>).</li>
+          <li><strong>English (Tarun Grover):</strong> Skip SSC 100-Q drill videos &amp; Active/Passive Voice; skim Speech basics (<strong>#34–#36</strong>) at 1.5&times; for Capgemini and Accenture.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="col-full sec">
+      <h2>Month 1 (Days 1–28): Arithmetic, Core Reasoning &amp; Thin-Chapter Drills</h2>
+      <p class="measure">Pace at ~2 hours/day. Add 10–15 <em>Simplification</em> speed questions on practice days (Days 7, 14, 21, 28) since the Advanced video only gives it ~3 minutes.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Week &amp; Days</th>
+              <th>Maths Block</th>
+              <th>Reasoning Block</th>
+              <th>English &amp; Tracker Check</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Week 1<br /><span class="ts-muted">Days 1–7</span></td>
+              <td><strong>Arithmetic 1 (D1–D4):</strong> Percentage, Election, Profit &amp; Loss, Dishonest Shopkeeper, Discount, SI, CI, SI/CI Diff, Installments (<span class="ts">00:00:00–end</span>)</td>
+              <td><strong>Reasoning (D5–D6):</strong> Syllogism, Number Series (~35m), Dice, Calendar, Clock (<span class="ts">00:00–04:55:39</span>)</td>
+              <td><strong>D6–D7:</strong> English <strong>#2</strong> (Parts of Speech) + <strong>#4</strong> (RC) + Day 7 Simplification &amp; Arithmetic 1 drills</td>
+            </tr>
+            <tr>
+              <td>Week 2<br /><span class="ts-muted">Days 8–14</span></td>
+              <td><strong>Arithmetic 2 (D8–D11):</strong> Ratio &amp; Proportion (<em>check for Ages</em>), LCM &amp; HCF (~1.5h), Mixture &amp; Alligation, TSD, Thief &amp; Police, Train, Boat, Race (<span class="ts">00:00:00–08:51:20</span>)</td>
+              <td><strong>Reasoning (D12–D13):</strong> Counting Figures, Order &amp; Ranking, Distance &amp; Direction, Puzzles &amp; Seating (1h20m), Inequality, Blood Relation (<span class="ts">04:55:39–09:55:04</span>)</td>
+              <td><strong>D13–D14:</strong> English <strong>#5</strong> (Para Jumbles) + <strong>#6</strong> (Cloze Test) + Day 14 extra <em>Puzzles/Seating</em> outside practice</td>
+            </tr>
+            <tr>
+              <td>Week 3<br /><span class="ts-muted">Days 15–21</span></td>
+              <td><strong>Arithmetic 2 &amp; 3 (D15–D17):</strong> Time &amp; Work, Pipe &amp; Cistern (<span class="ts">08:51:20–end</span>) + Average, Series, First/Last, Partnership (<span class="ts">00:00:07–end</span>)</td>
+              <td><strong>Reasoning (D18–D20):</strong> Mirror/Water, Paper Cut, Figure Completion, Non-Verbal, Analogy, Odd One Out, Alphabet Series, Coding, Letter Series (<span class="ts">09:55:04–16:56:40</span>)</td>
+              <td><strong>D20–D21:</strong> English <strong>#8</strong> (Vocab) + <strong>#18</strong> (SVA) + Day 21 Simplification &amp; Ages check (study outside if absent)</td>
+            </tr>
+            <tr>
+              <td>Week 4<br /><span class="ts-muted">Days 22–28</span></td>
+              <td><strong>Advanced Maths (D22–D24):</strong> Number System (<span class="ts">00:05:13–02:31:26</span>) + Algebra (<span class="ts">08:09:39–11:41:36</span>, <em>check for Indices &amp; Logs</em>) <em>[skip 14m LCM/HCF, 3m Simp, Trig, Coord]</em></td>
+              <td><strong>Reasoning (D25–D27):</strong> Venn Diagram (<span class="ts">17:43:02–17:57:05</span>), Data Sufficiency (~30m), Critical Math Reasoning (<em>check for Math Ops</em>), Input-Output (<span class="ts">18:04:54–end</span>) <em>[skip Pair/Dict/Matrix]</em></td>
+              <td><strong>D27–D28:</strong> English <strong>#20</strong> (Prepositions) + Day 28 Month-1 cumulative mock &amp; extra <em>Data Sufficiency</em></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="col-full sec">
+      <h2>Month 2 (Days 29–60): Thin-Chapter Upgrades, Missing Topics &amp; Mocks</h2>
+      <p class="measure">Weeks 5–6 finish Sequence &amp; Series, Mensuration 2D/3D, Probability, and English Grammar; Week 7 tackles all 7 Missing topics from your tracker plus company-specific additions; Week 8 runs timed mocks.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Week &amp; Days</th>
+              <th>Primary Focus</th>
+              <th>Secondary Focus &amp; Outside Practice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Week 5<br /><span class="ts-muted">Days 29–35</span></td>
+              <td><strong>Advanced Maths (D29–D32):</strong> Check <em>Mensuration 2D</em> (<span class="ts">11:41:36–11:44:06</span>; practice outside if ~2m timestamp error) + <em>Mensuration 3D</em> (<span class="ts">11:44:06–13:44:06</span>)</td>
+              <td><strong>English (D33–D35):</strong> <strong>#38</strong> Conditionals + <strong>#39</strong> Articles + <em>Indices &amp; Logarithms</em> (outside if not inside Algebra) + Day 35 weekly revision</td>
+            </tr>
+            <tr>
+              <td>Week 6<br /><span class="ts-muted">Days 36–42</span></td>
+              <td><strong>Advanced Maths (D36–D39):</strong> Sequence &amp; Series [AP/GP] (<span class="ts">13:44:06–15:02:50</span>) + Probability (<span class="ts">18:36:26–end</span>) + extra Probability outside <em>[skip 3h Geometry]</em></td>
+              <td><strong>English (D40–D42):</strong> Selective <strong>#10</strong> Tenses, <strong>#12</strong> Pronouns, <strong>#28</strong> Conjunctions + 1h Speech (<strong>#34–#36</strong> at 1.5&times; for Capgemini/Accenture) + Day 42 revision</td>
+            </tr>
+            <tr>
+              <td>Week 7<br /><span class="ts-muted">Days 43–49</span></td>
+              <td><strong>4 Missing Maths Topics (D43–D46):</strong> Data Interpretation (table, bar, pie, line), Permutation &amp; Combination, Set Theory (quantitative Venn), Quantitative Data Sufficiency (+ Statistics SD/Variance)</td>
+              <td><strong>3 Missing Reasoning + Firm Specials (D47–D49):</strong> Course of Action, Statement &amp; Conclusion/Assumption, Logical Sequence of Words + Infosys <em>Cryptarithmetic</em>, TCS <em>Passage Recall &amp; Email</em>, Accenture/Capgemini <em>Game-Based Cognitive</em></td>
+            </tr>
+            <tr>
+              <td>Week 8<br /><span class="ts-muted">Days 50–60</span></td>
+              <td><strong>Company-Wise Timed Mocks (D50–D57):</strong> 1 TCS NQT mock, 1 Infosys mock, 1 Accenture/Capgemini mock, 1 Wipro/Cognizant mock</td>
+              <td><strong>Final Polish (D58–D60):</strong> Update <em>Done = Yes</em> in your Excel tracker, drill weak areas (DI, P&amp;C, Statement/Assumption, Sentence Completion), and light recap on Day 60</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="col-full sec">
+      <h2>Week 7 outside-study checklist (Days 43–49)</h2>
+      <div class="cols-3">
+        <div>
+          <h3>4 Missing Maths Topics</h3>
+          <ul class="clean">
+            <li><strong>Data Interpretation:</strong> Tables, Bar, Pie, and Line graphs.</li>
+            <li><strong>Permutation &amp; Combination:</strong> Counting principle, <em>nPr</em>, <em>nCr</em>, restrictions.</li>
+            <li><strong>Set Theory &amp; Quant DS:</strong> Quantitative Venn diagrams &amp; 2-statement Data Sufficiency (+ Statistics SD/Variance).</li>
+          </ul>
+        </div>
+        <div>
+          <h3>3 Missing Reasoning Topics</h3>
+          <ul class="clean">
+            <li><strong>Course of Action:</strong> Practical administrative/problem-solving steps.</li>
+            <li><strong>Statement &amp; Conclusion / Assumption:</strong> Implicit assumptions &amp; strict logical deductions.</li>
+            <li><strong>Logical Sequence of Words:</strong> Meaningful order drills.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Company-Specific Additions</h3>
+          <ul class="clean">
+            <li><strong>TCS 2026 Verbal:</strong> 4 timed <em>Passage Recall</em> tasks + 9-min <em>Email Writing</em>.</li>
+            <li><strong>Infosys:</strong> <em>Cryptarithmetic</em> &amp; 4-Q Mathematical Puzzles.</li>
+            <li><strong>Accenture &amp; Capgemini:</strong> <em>Game-Based Cognitive</em> &amp; Abstract Reasoning.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="col-full sec">
+      <div class="pull-quote">
+        Check off each row's Done dropdown in your Excel tracker as you clear Weeks 1–7, and use Week 8 solely to convert those 13 Thin, Check-First, and Missing topics into timed accuracy.
+      </div>
+    </section>
+
+    <section class="col-full sec">
+      <h2>Sources</h2>
+      <ol class="clean">
+        <li><strong>NQT_Maths_Reasoning_Topics.xlsx</strong> — User-uploaded 33-topic audit (14 Covered, 6 Thin, 3 Check first, 7 Missing, 3 Extra - skip) and video timestamp notes.</li>
+        <li><a href="https://gita.edu.in/Admin/uploads/1773644271_TCS%20NQT%20Detailed%20Syllabus%202026.pdf" target="_blank" rel="noopener noreferrer">TCS NQT Detailed Syllabus 2026 PDF</a> — Foundation and Advanced Numerical, Verbal, and Reasoning syllabus.</li>
+        <li><a href="https://prepinsta.com/tcs-nqt/syllabus/" target="_blank" rel="noopener noreferrer">PrepInsta TCS NQT Syllabus 2026 &amp; Exam Pattern</a> — Updated 2026 Verbal Ability format (Sentence Completion, Passage Recall, Email Writing).</li>
+        <li><a href="https://prepinsta.com/infosys-syllabus/" target="_blank" rel="noopener noreferrer">PrepInsta Infosys Syllabus &amp; Online Test Pattern 2026</a> — Cryptarithmetic, Mathematical Puzzles, Data Interpretation, and Verbal topics.</li>
+        <li><a href="https://prepinsta.com/accenture/test-pattern-exam/" target="_blank" rel="noopener noreferrer">PrepInsta Accenture Syllabus 2026</a> — Gamified Cognitive Assessment, Abstract Reasoning, Critical Thinking, and English Ability.</li>
+        <li><a href="https://prepinsta.com/capgemini-syllabus/" target="_blank" rel="noopener noreferrer">PrepInsta Capgemini Exceller Syllabus 2026</a> — Game-Based Cognitive Aptitude and English Communication.</li>
+        <li><a href="https://www.youtube.com/playlist?list=PLmrfuXtxLLHN5R1JprKmvacY_7RftGxXy" target="_blank" rel="noopener noreferrer">Tarun Grover — Complete Course on English (39 Videos)</a> — Video index, chapter topics, and durations.</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>
